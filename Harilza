@@ -1,31 +1,30 @@
 #include<iostream>
-#include<thread>
-#include<chrono>
-
+#include<thread> //library thread
 
 using namespace std;
 
-
+//fungsi untuk membuat delay print di setiap thread. menggunakan millisecond agar bisa memasukkan delay 2.5 detik
 void delayPrint(int n) {
     this_thread::sleep_for(chrono::milliseconds(n));
     cout << "       Paused = " << n << " millisecond "<<endl;
 }
 
-
+//fungsi untuk menghasilkan angka ganjil 1 - 20
 void oddNumber() {
     for (int x = 1; x <= 20; x++){
         if (x % 2 != 0){
-            delayPrint(1000);
+            delayPrint(1000); //delay print angka ganjil 1 detik
             cout <<" [" << x <<"] " <<" (Odd Number) " << endl;
         }
         cout << endl;
     }
 }
 
+//fungsi untuk menghasilkan angka genap 1 - 20
 void evenNumber() {
     for (int x = 1; x <= 20; x++){
         if (x % 2 == 0){
-            delayPrint(2500);
+            delayPrint(2500); //delay print angka genap 2.5 detik
             cout << " [" << x << "] " << " (Even Number) " << endl;
         }
         cout << endl;
@@ -34,11 +33,12 @@ void evenNumber() {
 
 int main() {
     
-    thread first(oddNumber);
-    thread second(evenNumber);
+    thread first(oddNumber); //thread first untuk memanggil angka ganjil
+    thread second(evenNumber); //thread second untuk memanggil angka genap
 
-    first.join();
-    second.join();
+    //untuk menyingkronkan semua thread
+    first.join(); // pause sampai waktu thread pertama selesai
+    second.join();// pause sampai waktu thread kedua selesai
 
     cout << endl;
     cout << "Print Done!\n";
