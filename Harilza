@@ -1,0 +1,47 @@
+#include<iostream>
+#include<thread>
+#include<chrono>
+
+
+using namespace std;
+
+
+void delayPrint(int n) {
+    this_thread::sleep_for(chrono::milliseconds(n));
+    cout << "       Paused = " << n << " millisecond "<<endl;
+}
+
+
+void oddNumber() {
+    for (int x = 1; x <= 20; x++){
+        if (x % 2 != 0){
+            delayPrint(1000);
+            cout <<" [" << x <<"] " <<" (Odd Number) " << endl;
+        }
+        cout << endl;
+    }
+}
+
+void evenNumber() {
+    for (int x = 1; x <= 20; x++){
+        if (x % 2 == 0){
+            delayPrint(2500);
+            cout << " [" << x << "] " << " (Even Number) " << endl;
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    
+    thread first(oddNumber);
+    thread second(evenNumber);
+
+    first.join();
+    second.join();
+
+    cout << endl;
+    cout << "Print Done!\n";
+
+    return 0;
+}
